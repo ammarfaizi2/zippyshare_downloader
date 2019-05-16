@@ -1,0 +1,11 @@
+*.o
+*.so
+*.swo
+*.swp
+*.tmp
+*.lock
+*.cookie
+/vendor/
+/.phpintel/
+/test
+/test.php
