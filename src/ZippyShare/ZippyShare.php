@@ -157,7 +157,7 @@ final class ZippyShare
 
 			$m[4] = str_replace(["a", "b"], ["\$a", "\$b"], $m[4]);
 
-			var_dump($a, $b, $m[4]);
+			// var_dump($a, $b, $m[4]);
 
 			$a = (int)floor(((int)$m[1]) / 3);
 
