@@ -54,7 +54,7 @@ final class ZippyShare
 	public function __construct(string $url)
 	{
 		$this->url = $url;
-		$this->cookieFile = defined("ZIPPYSHARE_COOKIEFILE_DIR") ? ZIPPYSHARE_COOKIEFILE_DIR."/".sha1($this->url) : __DIR__."/".sha1($this->url);
+		$this->cookieFile = defined("ZIPPYSHARE_COOKIEFILE_DIR") ? ZIPPYSHARE_COOKIEFILE_DIR."/".sha1($this->url).".cookie" : __DIR__."/".sha1($this->url).".cookie";
 
 		if (!is_resource(self::$logHandle)) {
 			if (defined("ZIPPYSHARE_LOG_HANDLE") && is_resource("ZIPPYSHARE_LOG_HANDLE")) {
@@ -70,7 +70,7 @@ final class ZippyShare
 	 */
 	public function __destruct()
 	{
-		// file_exists($this->cookieFile) and unlink($this->cookieFile);
+		file_exists($this->cookieFile) and unlink($this->cookieFile);
 	}
 
 	/**
