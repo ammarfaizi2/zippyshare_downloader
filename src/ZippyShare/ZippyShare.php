@@ -91,6 +91,14 @@ final class ZippyShare
 	}
 
 	/**
+	 * @return strng
+	 */
+	public function getFileUrl(): string
+	{
+		return $this->fileUrl;
+	}
+
+	/**
 	 * @param string $proxy
 	 * @param int    $proxyType
 	 * @return void
@@ -221,13 +229,13 @@ start_curl:
 		$o = new stdClass;
 
 		$o->out = curl_exec($ch);
-		$o->err = curl_error($ch);
-		$o->ern = curl_errno($ch);
+		$o->error = curl_error($ch);
+		$o->errno = curl_errno($ch);
 		$o->info = curl_getinfo($ch);
 		curl_close($ch);
 
-		if ($o->err) {
-			self::log("There was an error occured when accessing %s: (%d) %s.", $url, $o->ern, $o->err);
+		if ($o->error) {
+			self::log("There was an error occured when accessing %s: (%d) %s.", $url, $o->errno, $o->error);
 			if (!$retried) {
 				self::log("Retrying to fetch %s...", $url);
 				$retried = true;
