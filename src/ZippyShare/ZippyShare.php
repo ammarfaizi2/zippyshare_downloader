@@ -80,7 +80,6 @@ final class ZippyShare
 	{
 		try {
 			if ($this->visitPage()) {
-				$this->downloadFile();
 				return true;
 			}
 		} catch (Exception $e) {
@@ -120,7 +119,7 @@ final class ZippyShare
 	/**
 	 * @return void
 	 */
-	private function downloadFile(): void
+	public function downloadFile(): void
 	{
 		self::log("Downloading file...");
 
