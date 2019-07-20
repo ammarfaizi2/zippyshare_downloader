@@ -155,21 +155,14 @@ final class ZippyShare
 		// $o->out = file_get_contents("test.tmp");
 
 		if (preg_match(
-			"/(?:<script type=\"text\/javascript\">[\n\s]+?var a = )(\d+)(?:;[\n\s]+?var b = )(\d+)(?:;.+?dlbutton'\).href = \")(.+?)(?:\"\+\((.+?)\)\+\")(.+?)(?:\")/si",
+			'/document.getElementById\(\'dlbutton\'\).href = "(.+?)" \+ \((.+?)\) \+ "(.+?)"/',
 			$o->out,
 			$m
 		)) {
-			$a = (int)$m[1];
-			$b = (int)$m[2];
-
-			$m[4] = str_replace(["a", "b"], ["\$a", "\$b"], $m[4]);
-
-			// var_dump($a, $b, $m[4]);
-
-			$a = (int)floor(((int)$m[1]) / 3);
 
 			try {
-				eval("\$m[4] = {$m[4]};");
+				eval("\$num = {$m[2]};");
+				$num = (int)floor($num);
 			} catch (Error $e) {
 				throw new Exception("Invalid evaluation");
 			}
@@ -179,7 +172,7 @@ final class ZippyShare
 				$serverNum = $mm[1];
 			}
 
-			$this->fileUrl = "https://www{$serverNum}.zippyshare.com/".ltrim($m[3], "/").$m[4].$m[5];
+			$this->fileUrl = "https://www{$serverNum}.zippyshare.com/".ltrim($m[1], "/").$num.$m[3];
 
 			return true;
 		}
